@@ -98,16 +98,11 @@ delimiter ;
 --  TRIGGER PARA ACTUALIZAR EL PRESUPUESTO EN TRASPASO_JUG
 delimiter &&
 
-create trigger validar_y_actualizar_presupuesto_traspaso_jug
+create trigger actualizar_presupuesto_traspaso_jug
 after insert on traspaso_jug
 for each row
 begin
     declare presupuesto_actual int;
-
-    select presupuesto into presupuesto_actual
-    from usuario
-    where id_usuario = new.id_comprador;
-
         
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
@@ -125,16 +120,10 @@ delimiter ;
 --  TRIGGER PARA ACTUALIZAR EL PRESUPUESTO EN TRASPASO_ENT
 delimiter &&
 
-create trigger validar_y_actualizar_presupuesto_traspaso_ent
+create trigger actualizar_presupuesto_traspaso_ent
 after insert on traspaso_ent
 for each row
 begin
-    declare presupuesto_actual int;
-
-    select presupuesto into presupuesto_actual
-    from usuario
-    where id_usuario = new.id_comprador;
-
    
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
