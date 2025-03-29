@@ -108,7 +108,6 @@ begin
     from usuario
     where id_usuario = new.id_comprador;
 
-    if presupuesto_actual < new.precio_traspaso then
         
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
@@ -118,7 +117,6 @@ begin
     set presupuesto = presupuesto + new.precio_traspaso
     where id_usuario = new.id_vendedor;
    
-	end if;
 end &&
 
 delimiter ;
@@ -137,7 +135,6 @@ begin
     from usuario
     where id_usuario = new.id_comprador;
 
-    if presupuesto_actual < new.precio_traspaso then
    
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
@@ -147,7 +144,6 @@ begin
     set presupuesto = presupuesto + new.precio_traspaso
     where id_usuario = new.id_vendedor;
    
-    end if;
 end &&
 
 delimiter ;
