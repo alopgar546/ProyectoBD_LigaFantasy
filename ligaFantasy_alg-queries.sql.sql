@@ -102,8 +102,7 @@ create trigger actualizar_presupuesto_traspaso_jug
 after insert on traspaso_jug
 for each row
 begin
-    declare presupuesto_actual int;
-        
+
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
     where id_usuario = new.id_comprador;
@@ -124,7 +123,7 @@ create trigger actualizar_presupuesto_traspaso_ent
 after insert on traspaso_ent
 for each row
 begin
-   
+
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
     where id_usuario = new.id_comprador;
