@@ -99,7 +99,7 @@ delimiter ;
 delimiter &&
 
 create trigger validar_y_actualizar_presupuesto_traspaso_jug
-before insert on traspaso_jug
+after insert on traspaso_jug
 for each row
 begin
     declare presupuesto_actual int;
@@ -126,7 +126,7 @@ delimiter ;
 delimiter &&
 
 create trigger validar_y_actualizar_presupuesto_traspaso_ent
-before insert on traspaso_ent
+after insert on traspaso_ent
 for each row
 begin
     declare presupuesto_actual int;
