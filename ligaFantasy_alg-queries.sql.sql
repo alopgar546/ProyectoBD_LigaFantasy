@@ -22,7 +22,7 @@ from traspaso_jug tj inner join jugadores j
 	on tj.id_jugadores= j.id_jugadores  
 group by j.id_jugadores  
 order by cantidad_traspasos desc  
-limit 1;
+limit 5;
 
 -- 
 -- Consulta 3
