@@ -102,7 +102,20 @@ create trigger actualizar_presupuesto_traspaso_jug
 after insert on traspaso_jug
 for each row
 begin
+    declare nuevo_presupuesto decimal(10,2);
 
+    -- calculamos el nuevo presupuesto del comprador antes de actualizar
+    select presupuesto - new.precio_traspaso into nuevo_presupuesto
+    from usuario
+    where id_usuario = new.id_comprador;
+
+    -- verificamos si el presupuesto quedaría en negativo
+    if nuevo_presupuesto < 0 then
+        signal sqlstate '45000'
+        set message_text = 'error: el comprador no tiene suficiente presupuesto para este traspaso.';
+    end if;
+
+    -- actualizamos los presupuestos si la validación se pasó
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
     where id_usuario = new.id_comprador;
@@ -110,7 +123,7 @@ begin
     update usuario
     set presupuesto = presupuesto + new.precio_traspaso
     where id_usuario = new.id_vendedor;
-   
+
 end &&
 
 delimiter ;
@@ -123,7 +136,20 @@ create trigger actualizar_presupuesto_traspaso_ent
 after insert on traspaso_ent
 for each row
 begin
+    declare nuevo_presupuesto int;
 
+    -- calculamos el nuevo presupuesto del comprador antes de actualizar
+    select presupuesto - new.precio_traspaso into nuevo_presupuesto
+    from usuario
+    where id_usuario = new.id_comprador;
+
+    -- verificamos si el presupuesto quedaría en negativo
+    if nuevo_presupuesto < 0 then
+        signal sqlstate '45000'
+        set message_text = 'error: el comprador no tiene suficiente presupuesto para este traspaso.';
+    end if;
+
+    -- actualizamos los presupuestos si la validación se pasó
     update usuario
     set presupuesto = presupuesto - new.precio_traspaso
     where id_usuario = new.id_comprador;
@@ -131,7 +157,7 @@ begin
     update usuario
     set presupuesto = presupuesto + new.precio_traspaso
     where id_usuario = new.id_vendedor;
-   
+
 end &&
 
 delimiter ;
