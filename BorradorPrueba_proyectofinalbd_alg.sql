@@ -77,17 +77,17 @@ order by victorias desc;
 
 
 
-
+-- PRUEBA DE TRIGGER
 INSERT INTO proyectoBD_ligaFantasy_alg.traspaso_jug (ID_COMPRADOR,ID_JUGADORES,ID_VENDEDOR,FECHA_TRASPASO,PRECIO_TRASPASO,ID_TRASPASO_JUG) VALUES
 	 (101,10020,102,'2025-01-27 00:10:13',100000000,32);
 
 
 
 
-
+-- PROCEDURES
 
 -- VER TODOS LOS JUGADORES DE UN USUARIO
-delimiter &&
+/* delimiter &&
 
 create procedure obtener_jugadores_usuario(in id_usuario int)
 begin
@@ -98,6 +98,7 @@ begin
 end &&
 
 delimiter ;
+*/
 
 call obtener_jugadores_usuario(111);
 
@@ -105,7 +106,7 @@ call obtener_jugadores_usuario(111);
 
 -- VER LOS EQUIPOS MAS CAROS
 
-delimiter &&
+/*delimiter &&
 
 create procedure obtener_precio_equipos_usuario()
 begin
@@ -117,6 +118,7 @@ begin
 end &&
 
 delimiter ;
+*/
 
 call obtener_precio_equipos_usuario();
 
@@ -124,7 +126,7 @@ call obtener_precio_equipos_usuario();
 
 -- VER CLASIFICACION USUARIOS
 
-delimiter &&
+/*delimiter &&
 
 create procedure clasificacion_usuarios()
 begin
@@ -134,13 +136,15 @@ begin
 end &&
 
 delimiter ;
+*/
 
 call clasificacion_usuarios();
 
+-- FUNCIONES
 
 -- FUNCION VER PUNTOS DEL USUARIO
 
-delimiter &&
+/*delimiter &&
 
 create function obtener_puntos_usuario(id_usuario_param int) 
 returns int 
@@ -160,13 +164,14 @@ begin
 end &&
 
 delimiter ;
+*/
 
 select obtener_puntos_usuario(110);
 
 
 -- VER CANTIDAD DE JUGADORES DE UN USUARIO
 
-delimiter &&
+/*delimiter &&
 
 create function obtener_total_jugadores(id_usuario int)
 returns int
@@ -183,6 +188,7 @@ begin
 end &&
 
 delimiter ;
+*/
 
 select obtener_total_jugadores(111);
 
@@ -192,31 +198,32 @@ where j.ID_PROPIETARIO = 111;
 
 
 
-
+-- VISTAS
 -- VER PUNTOS TOTALES DE LOS JUGADORES
 
-create view vista_clasificacion_jugadores as
+/*create view vista_clasificacion_jugadores as
 select j.id_jugadores, j.nombre as jugador, j.equipo, sum(c.puntos) as puntos_totales
 from jugadores j join clasificacion_jug c 
 	on j.id_jugadores = c.id_jugadores
 group by j.id_jugadores, j.nombre, j.equipo
 order by puntos_totales desc;
-
+*/
+select * from vista_clasificacion_jugadores;
 
 -- VISTA PARA VER CANTIDAD GASTADA POR USUARIO
 
-create view vista_resumen_traspasos_usuario as
+/*create view vista_resumen_traspasos_usuario as
 select u.id_usuario, u.nombre as usuario, sum(t.precio_traspaso) as total_gastado
 from traspaso_jug t inner join usuario u
 	on t.id_comprador = u.id_usuario
 group by u.id_usuario, u.nombre
 order by total_gastado desc;
-
+*/
 
 select * from vista_resumen_traspasos_usuario;
 
 
-select * from vista_clasificacion_jugadores;
+
 
 
 
